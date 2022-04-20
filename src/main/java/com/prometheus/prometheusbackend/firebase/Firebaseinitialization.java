@@ -28,7 +28,6 @@ public class Firebaseinitialization {
             FirebaseApp.initializeApp(options);
 
         } catch (Exception e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 

@@ -3,7 +3,6 @@ package com.prometheus.prometheusbackend.service;
 import java.util.concurrent.ExecutionException;
 
 import com.google.api.core.ApiFuture;
-import com.google.cloud.firestore.DocumentReference;
 import com.google.cloud.firestore.DocumentSnapshot;
 import com.google.cloud.firestore.WriteResult;
 import com.prometheus.prometheusbackend.entity.User;
