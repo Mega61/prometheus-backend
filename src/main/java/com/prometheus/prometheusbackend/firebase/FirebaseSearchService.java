@@ -1,7 +1,6 @@
 package com.prometheus.prometheusbackend.firebase;
 
 import java.util.Iterator;
-import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import com.google.api.core.ApiFuture;
