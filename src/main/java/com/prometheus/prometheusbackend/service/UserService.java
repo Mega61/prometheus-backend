@@ -45,7 +45,7 @@ public class UserService {
 
         DocumentSnapshot document = FirebaseSearchService.searchDocument(COLLECTION_NAME, email);
 
-        if (document.exists()) {
+        if (document != null) {
             user = document.toObject(User.class);
             return user;
         } else {
