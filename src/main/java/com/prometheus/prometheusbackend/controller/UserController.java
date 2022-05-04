@@ -1,11 +1,13 @@
 package com.prometheus.prometheusbackend.controller;
 
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import com.prometheus.prometheusbackend.entity.User;
 import com.prometheus.prometheusbackend.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,7 +25,7 @@ public class UserController {
 
     @PostMapping("/users")
     public String createUser(@RequestBody User user) throws InterruptedException, ExecutionException{
-        return userService.createProduct(user);
+        return userService.createUser(user);
     }
 
     @GetMapping("/users/{email}")
@@ -31,9 +33,19 @@ public class UserController {
         return userService.getUserDetails(email);
     }
 
+    @GetMapping("/users")
+    public List<User> getAllUsers() throws InterruptedException, ExecutionException{
+        return userService.getAllUserDetails();
+    }
+
     @PutMapping("/users")
     public String updateUser(@RequestBody User user) throws InterruptedException, ExecutionException{
-        return userService.updateProduct(user);
+        return userService.updateUser(user);
+    }
+
+    @DeleteMapping("/users/{email}")
+    public String deleteUser(@PathVariable String email) throws ExecutionException, InterruptedException{
+        return userService.deleteUser(email);
     }
 
     

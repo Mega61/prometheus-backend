@@ -1,5 +1,7 @@
 package com.prometheus.prometheusbackend.firebase;
 
+import java.util.Iterator;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import com.google.api.core.ApiFuture;
@@ -33,6 +35,16 @@ public class FirebaseSearchService {
         } else {
             return null;
         }
+
+    }
+
+    public static  Iterator<DocumentReference> searchAllDocuments(String collection) throws InterruptedException, ExecutionException{
+
+
+        Iterable<DocumentReference> documentReference = getFirestoreInstance().collection(collection).listDocuments();
+        Iterator<DocumentReference> iterator = documentReference.iterator();
+
+        return iterator;
 
     }
 
