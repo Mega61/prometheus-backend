@@ -42,7 +42,7 @@ public class UserController {
     public String updateUser(@RequestBody User user) throws InterruptedException, ExecutionException{
         return userService.updateUser(user);
     }
-
+    
     @DeleteMapping("/users/{email}")
     public String deleteUser(@PathVariable String email) throws ExecutionException, InterruptedException{
         return userService.deleteUser(email);
