@@ -30,7 +30,7 @@ public class UserService {
         } else {
             ApiFuture<WriteResult> collectionApiFuture = FirebaseSearchService.getFirestoreInstance()
                     .collection(COLLECTION_NAME)
-                    .document(user.getEmail())
+                    .document(user.getClient_id())
                     .set(user);
 
             apiAnswer = "Creation executed at: " + collectionApiFuture.get().getUpdateTime().toString();
