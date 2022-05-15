@@ -28,9 +28,9 @@ public class UserController {
         return userService.createUser(user);
     }
 
-    @GetMapping("/users/{email}")
-    public User getUser(@PathVariable String email) throws InterruptedException, ExecutionException{
-        return userService.getUserDetails(email);
+    @GetMapping("/users/{client_id}")
+    public User getUser(@PathVariable String client_id) throws InterruptedException, ExecutionException{
+        return userService.getUserDetails(client_id);
     }
 
     @GetMapping("/users")
@@ -43,10 +43,10 @@ public class UserController {
         return userService.updateUser(user);
     }
     
-    @DeleteMapping("/users/{email}")
-    public String deleteUser(@PathVariable String email) throws ExecutionException, InterruptedException{
-        return userService.deleteUser(email);
-    }
+    @DeleteMapping("/users/{client_id}")
+    public String deleteUser(@PathVariable String client_id) throws ExecutionException, InterruptedException{
+        return userService.deleteUser(client_id);
+    } 
 
     
     

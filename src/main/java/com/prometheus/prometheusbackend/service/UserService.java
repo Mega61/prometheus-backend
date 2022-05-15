@@ -23,7 +23,7 @@ public class UserService {
 
         String apiAnswer = "";
 
-        DocumentSnapshot documentSnapshot = FirebaseSearchService.searchDocument(COLLECTION_NAME, user.getEmail());
+        DocumentSnapshot documentSnapshot = FirebaseSearchService.searchDocument(COLLECTION_NAME, user.getClient_id());
 
         if (documentSnapshot != null) {
             apiAnswer = "User creation FAILED\nThe user already exists";
@@ -39,11 +39,11 @@ public class UserService {
         return apiAnswer;
     }
 
-    public User getUserDetails(String email) throws InterruptedException, ExecutionException {
+    public User getUserDetails(String userId) throws InterruptedException, ExecutionException {
 
         User user = null;
 
-        DocumentSnapshot document = FirebaseSearchService.searchDocument(COLLECTION_NAME, email);
+        DocumentSnapshot document = FirebaseSearchService.searchDocument(COLLECTION_NAME, userId);
 
         if (document != null) {
             user = document.toObject(User.class);
@@ -57,12 +57,12 @@ public class UserService {
 
         String apiAnswer = "";
 
-        DocumentSnapshot documentSnapshot = FirebaseSearchService.searchDocument(COLLECTION_NAME, user.getEmail());
+        DocumentSnapshot documentSnapshot = FirebaseSearchService.searchDocument(COLLECTION_NAME, user.getClient_id());
 
         if (documentSnapshot != null) {
             ApiFuture<WriteResult> collectionApiFuture = FirebaseSearchService.getFirestoreInstance()
                     .collection(COLLECTION_NAME)
-                    .document(user.getEmail())
+                    .document(user.getClient_id())
                     .set(user);
 
             apiAnswer = "Update executed at: " + collectionApiFuture.get().getUpdateTime().toString();
@@ -75,16 +75,16 @@ public class UserService {
         return apiAnswer;
     }
 
-    public String deleteUser(String email) throws ExecutionException, InterruptedException {
+    public String deleteUser(String client_id) throws ExecutionException, InterruptedException {
 
         String apiAnswer = "";
 
-        DocumentSnapshot documentSnapshot = FirebaseSearchService.searchDocument(COLLECTION_NAME, email);
+        DocumentSnapshot documentSnapshot = FirebaseSearchService.searchDocument(COLLECTION_NAME, client_id);
 
         if (documentSnapshot != null) {
             ApiFuture<WriteResult> collectionApiFuture = FirebaseSearchService.getFirestoreInstance()
                     .collection(COLLECTION_NAME)
-                    .document(email)
+                    .document(client_id)
                     .delete();
 
             apiAnswer = "User deleted at: " + collectionApiFuture.get().getUpdateTime().toString();
