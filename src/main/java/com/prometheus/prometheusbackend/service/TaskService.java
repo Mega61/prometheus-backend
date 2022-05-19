@@ -33,7 +33,8 @@ public class TaskService {
                     .document(task.getTask_id())
                     .set(task);
 
-            apiAnswer = "Task Creation executed at: " + collectionApiFuture.get().getUpdateTime().toString();
+            apiAnswer = "Task Creation executed at: " + collectionApiFuture.get().getUpdateTime().toString()
+            + "\n"+ task.getDue_date();
         }
 
         return apiAnswer;

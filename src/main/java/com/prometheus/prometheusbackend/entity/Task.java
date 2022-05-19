@@ -1,18 +1,20 @@
 package com.prometheus.prometheusbackend.entity;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 public class Task {
+
     private String task_id;
     private String title;
     private String user_id;
     private String category;
     private int difficulty;
-    private Date due_date;
+    private String due_date;
     private float effort;
     private String state;
     private int stimated_time;
-    
 
     public String getTask_id() {
         return this.task_id;
@@ -54,11 +56,11 @@ public class Task {
         this.difficulty = difficulty;
     }
 
-    public Date getDue_date() {
+    public String getDue_date() {
         return this.due_date;
     }
 
-    public void setDue_date(Date due_date) {
+    public void setDue_date(String due_date) {
         this.due_date = due_date;
     }
 
