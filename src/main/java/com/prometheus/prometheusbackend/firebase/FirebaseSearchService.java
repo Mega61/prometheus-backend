@@ -37,8 +37,8 @@ public class FirebaseSearchService {
 
     }
 
-    public static  Iterator<DocumentReference> searchAllDocuments(String collection) throws InterruptedException, ExecutionException{
-
+    public static Iterator<DocumentReference> searchAllDocuments(String collection)
+            throws InterruptedException, ExecutionException {
 
         Iterable<DocumentReference> documentReference = getFirestoreInstance().collection(collection).listDocuments();
         Iterator<DocumentReference> iterator = documentReference.iterator();
@@ -46,5 +46,13 @@ public class FirebaseSearchService {
         return iterator;
 
     }
+
+    // public static Iterator<DocumentReference> searchAllDocumentsPerId(String collection, String fieldName, String searchId) {
+
+    //     Iterable<DocumentReference> documentReference = getFirestoreInstance().collection(collection).whereEqualTo(fieldName, searchId).listDocuments();
+    //     Iterator<DocumentReference> iterator = documentReference.iterator();
+
+    //     return iterator;
+    // }
 
 }
