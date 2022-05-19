@@ -43,6 +43,12 @@ public class TaskController {
     }
 
     @CrossOrigin(origins = "*")
+    @GetMapping("/tasksPerUser/{user_id}")
+    public List<Task> getAllTasksPerUser(@PathVariable String user_id) throws InterruptedException, ExecutionException{
+        return taskService.getAllTasksPerUser(user_id);
+    }
+
+    @CrossOrigin(origins = "*")
     @PutMapping("/tasks")
     public String updateTask(@RequestBody Task task) throws InterruptedException, ExecutionException{
         return taskService.updateTask(task);

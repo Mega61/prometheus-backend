@@ -109,14 +109,29 @@ public class TaskService {
             taskList.add(task);
         }
 
+
+
         return taskList;
     }
 
-    public List<Task> getAllTasksPerUser(String client_id){
+    public List<Task> getAllTasksPerUser(String client_id) throws InterruptedException, ExecutionException{
+        Iterator<DocumentReference> iterator = FirebaseSearchService.searchAllDocuments(COLLECTION_NAME);
+
         List<Task> taskList = new ArrayList<>();
         Task task = null;
 
-        return null;
+        while (iterator.hasNext()) {
+            DocumentReference documentReference2 = iterator.next();
+            ApiFuture<DocumentSnapshot> future = documentReference2.get();
+            DocumentSnapshot documentSnapshot = future.get();
+
+            task = documentSnapshot.toObject(Task.class);
+            if(task.getUser_id().equals(client_id)){
+                taskList.add(task);
+            }
+        }
+
+        return taskList;
     }
 
 }

@@ -26,34 +26,39 @@ public class UserController {
 
     @CrossOrigin(origins = "*")
     @PostMapping("/users")
-    public String createUser(@RequestBody User user) throws InterruptedException, ExecutionException{
+    public String createUser(@RequestBody User user) throws InterruptedException, ExecutionException {
         return userService.createUser(user);
     }
 
     @CrossOrigin(origins = "*")
     @GetMapping("/users/{client_id}")
-    public User getUser(@PathVariable String client_id) throws InterruptedException, ExecutionException{
+    public User getUser(@PathVariable String client_id) throws InterruptedException, ExecutionException {
         return userService.getUserDetails(client_id);
     }
 
     @CrossOrigin(origins = "*")
     @GetMapping("/users")
-    public List<User> getAllUsers() throws InterruptedException, ExecutionException{
+    public List<User> getAllUsers() throws InterruptedException, ExecutionException {
         return userService.getAllUserDetails();
     }
 
     @CrossOrigin(origins = "*")
     @PutMapping("/users")
-    public String updateUser(@RequestBody User user) throws InterruptedException, ExecutionException{
+    public String updateUser(@RequestBody User user) throws InterruptedException, ExecutionException {
         return userService.updateUser(user);
     }
-    
+
     @CrossOrigin(origins = "*")
     @DeleteMapping("/users/{client_id}")
-    public String deleteUser(@PathVariable String client_id) throws ExecutionException, InterruptedException{
+    public String deleteUser(@PathVariable String client_id) throws ExecutionException, InterruptedException {
         return userService.deleteUser(client_id);
-    } 
+    }
 
-    
-    
+    @CrossOrigin(origins = "*")
+    @PostMapping("/users/{email}/{password}")
+    public boolean validateUserLogin(@PathVariable String email,@PathVariable String password)
+            throws InterruptedException, ExecutionException {
+        return userService.validateLogin(email, password);
+    }
+
 }

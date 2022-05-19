@@ -4,9 +4,12 @@ import java.util.Iterator;
 import java.util.concurrent.ExecutionException;
 
 import com.google.api.core.ApiFuture;
+import com.google.cloud.firestore.CollectionReference;
 import com.google.cloud.firestore.DocumentReference;
 import com.google.cloud.firestore.DocumentSnapshot;
 import com.google.cloud.firestore.Firestore;
+import com.google.cloud.firestore.Query;
+import com.google.cloud.firestore.QuerySnapshot;
 import com.google.firebase.cloud.FirestoreClient;
 
 import org.springframework.stereotype.Service;
@@ -37,6 +40,24 @@ public class FirebaseSearchService {
 
     }
 
+    public static boolean validateLogin(String collection, String email, String password)
+            throws InterruptedException, ExecutionException {
+
+        boolean conclusion = false;
+
+        CollectionReference collectionReference = getFirestoreInstance().collection(collection);
+        Query query = collectionReference.whereEqualTo("email", email).whereEqualTo("password", password);
+        ApiFuture<QuerySnapshot> querySnapshot = query.get();
+
+        for (DocumentSnapshot document : querySnapshot.get().getDocuments()) {
+            document.get("email");
+            if (document.exists()) {
+                conclusion = true;
+            }
+        }
+        return conclusion;
+    }
+
     public static Iterator<DocumentReference> searchAllDocuments(String collection)
             throws InterruptedException, ExecutionException {
 
@@ -46,13 +67,5 @@ public class FirebaseSearchService {
         return iterator;
 
     }
-
-    // public static Iterator<DocumentReference> searchAllDocumentsPerId(String collection, String fieldName, String searchId) {
-
-    //     Iterable<DocumentReference> documentReference = getFirestoreInstance().collection(collection).whereEqualTo(fieldName, searchId).listDocuments();
-    //     Iterator<DocumentReference> iterator = documentReference.iterator();
-
-    //     return iterator;
-    // }
 
 }
