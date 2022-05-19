@@ -40,19 +40,18 @@ public class FirebaseSearchService {
 
     }
 
-    public static boolean validateLogin(String collection, String email, String password)
+    public static String validateLogin(String collection, String email, String password)
             throws InterruptedException, ExecutionException {
 
-        boolean conclusion = false;
+        String conclusion = "false";
 
         CollectionReference collectionReference = getFirestoreInstance().collection(collection);
         Query query = collectionReference.whereEqualTo("email", email).whereEqualTo("password", password);
         ApiFuture<QuerySnapshot> querySnapshot = query.get();
 
         for (DocumentSnapshot document : querySnapshot.get().getDocuments()) {
-            document.get("email");
-            if (document.exists()) {
-                conclusion = true;
+            if (document != null) {
+                conclusion = "id: " + document.get("client_id").toString() + "\nname: " + document.get("nombre");
             }
         }
         return conclusion;
@@ -65,7 +64,6 @@ public class FirebaseSearchService {
         Iterator<DocumentReference> iterator = documentReference.iterator();
 
         return iterator;
-
     }
 
 }

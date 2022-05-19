@@ -56,7 +56,7 @@ public class UserController {
 
     @CrossOrigin(origins = "*")
     @PostMapping("/users/{email}/{password}")
-    public boolean validateUserLogin(@PathVariable String email,@PathVariable String password)
+    public String validateUserLogin(@PathVariable String email,@PathVariable String password)
             throws InterruptedException, ExecutionException {
         return userService.validateLogin(email, password);
     }

@@ -115,7 +115,8 @@ public class UserService {
         return userList;
     }
 
-    public boolean validateLogin(String email, String password) throws InterruptedException, ExecutionException{
+    public String validateLogin(String email, String password) throws InterruptedException, ExecutionException {
+
         return FirebaseSearchService.validateLogin(COLLECTION_NAME, email, password);
     }
 
