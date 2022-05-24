@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import com.prometheus.prometheusbackend.entity.User;
+import com.prometheus.prometheusbackend.model.LoginResponse;
 import com.prometheus.prometheusbackend.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -55,8 +57,9 @@ public class UserController {
     }
 
     @CrossOrigin(origins = "*")
+    @ResponseBody
     @PostMapping("/users/{email}/{password}")
-    public String validateUserLogin(@PathVariable String email,@PathVariable String password)
+    public LoginResponse validateUserLogin(@PathVariable String email,@PathVariable String password)
             throws InterruptedException, ExecutionException {
         return userService.validateLogin(email, password);
     }

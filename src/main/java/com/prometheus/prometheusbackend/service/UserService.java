@@ -11,6 +11,7 @@ import com.google.cloud.firestore.DocumentSnapshot;
 import com.google.cloud.firestore.WriteResult;
 import com.prometheus.prometheusbackend.entity.User;
 import com.prometheus.prometheusbackend.firebase.FirebaseSearchService;
+import com.prometheus.prometheusbackend.model.LoginResponse;
 
 import org.springframework.stereotype.Service;
 
@@ -115,7 +116,7 @@ public class UserService {
         return userList;
     }
 
-    public String validateLogin(String email, String password) throws InterruptedException, ExecutionException {
+    public LoginResponse validateLogin(String email, String password) throws InterruptedException, ExecutionException {
 
         return FirebaseSearchService.validateLogin(COLLECTION_NAME, email, password);
     }

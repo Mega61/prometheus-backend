@@ -11,6 +11,7 @@ import com.google.cloud.firestore.Firestore;
 import com.google.cloud.firestore.Query;
 import com.google.cloud.firestore.QuerySnapshot;
 import com.google.firebase.cloud.FirestoreClient;
+import com.prometheus.prometheusbackend.model.LoginResponse;
 
 import org.springframework.stereotype.Service;
 
@@ -20,6 +21,7 @@ public class FirebaseSearchService {
     public static Firestore getFirestoreInstance() {
 
         Firestore dbFirestore = FirestoreClient.getFirestore();
+        
 
         return dbFirestore;
 
@@ -40,10 +42,11 @@ public class FirebaseSearchService {
 
     }
 
-    public static String validateLogin(String collection, String email, String password)
+    public static LoginResponse validateLogin(String collection, String email, String password)
             throws InterruptedException, ExecutionException {
 
-        String conclusion = "false";
+        //String conclusion = "{validity: false}";
+        LoginResponse loginResponse= new LoginResponse(false,"null","null");
 
         CollectionReference collectionReference = getFirestoreInstance().collection(collection);
         Query query = collectionReference.whereEqualTo("email", email).whereEqualTo("password", password);
@@ -51,10 +54,13 @@ public class FirebaseSearchService {
 
         for (DocumentSnapshot document : querySnapshot.get().getDocuments()) {
             if (document != null) {
-                conclusion = "id: " + document.get("client_id").toString() + "\nname: " + document.get("nombre");
+                //conclusion = "{'validity': true\n" +  "'id': " + document.get("client_id").toString() + "\n'name': " + document.get("nombre") + "}";
+                loginResponse.setValidity(true);
+                loginResponse.setId(document.get("client_id").toString());
+                loginResponse.setName(document.get("nombre").toString());
             }
         }
-        return conclusion;
+        return loginResponse;
     }
 
     public static Iterator<DocumentReference> searchAllDocuments(String collection)
